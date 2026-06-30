@@ -24,18 +24,18 @@
   <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/60 shadow-sm">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center gap-6">
-        <div class="flex items-center gap-2 cursor-pointer" onclick="alternarTela('inicio')">
+        <div class="flex items-center gap-2 cursor-pointer" onclick="mudarDeTela('inicio')">
           <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-md shadow-indigo-200">H</div>
           <span class="text-xl font-extrabold tracking-tight text-slate-900">Hardware<span class="text-indigo-600">Hub</span></span>
         </div>
         
         <nav class="flex items-center gap-5 text-sm font-semibold text-slate-600 ml-2">
-          <button id="nav-inicio" onclick="alternarTela('inicio')" class="pb-1 transition-colors hover:text-indigo-600 tab-active">Início</button>
-          <button id="nav-banco" onclick="alternarTela('banco')" class="pb-1 transition-colors hover:text-indigo-600">Peças Disponíveis</button>
-          <button id="nav-mural" onclick="alternarTela('mural')" class="pb-1 transition-colors hover:text-indigo-600">Mural de Pedidos</button>
+          <button id="nav-inicio" onclick="mudarDeTela('inicio')" class="pb-1 transition-colors hover:text-indigo-600 tab-active">Início</button>
+          <button id="nav-banco" onclick="mudarDeTela('banco')" class="pb-1 transition-colors hover:text-indigo-600">Peças Disponíveis</button>
+          <button id="nav-mural" onclick="mudarDeTela('mural')" class="pb-1 transition-colors hover:text-indigo-600">Mural de Pedidos</button>
         </nav>
       </div>
-      <a href="#doar-peca" onclick="alternarTela('inicio')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-all shadow-md shadow-indigo-100 hover:scale-[1.02]">
+      <a href="#doar-peca" onclick="mudarDeTela('inicio')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-all shadow-md shadow-indigo-100 hover:scale-[1.02]">
         Doar Componente
       </a>
     </div>
@@ -43,7 +43,7 @@
 
   <div class="flex-grow">
 
-    <div id="secao-inicio" class="block">
+    <div id="view-inicio" class="block">
       <main class="container mx-auto px-6 py-12 md:py-20">
         <div class="flex flex-col lg:flex-row items-center gap-16">
           
@@ -59,17 +59,17 @@
             </p>
 
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4">
-              <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm cursor-pointer hover:border-indigo-300 transition-colors" onclick="alternarTela('banco')">
+              <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm cursor-pointer hover:border-indigo-300 transition-colors" onclick="mudarDeTela('banco')">
                 <div class="text-2xl mb-1">🖥️</div>
                 <h4 class="font-bold text-slate-800 text-sm">Desktops & Notebooks</h4>
                 <p class="text-xs text-slate-400 mt-0.5">Placas, RAM, HDs/SSDs, fontes.</p>
               </div>
-              <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm cursor-pointer hover:border-indigo-300 transition-colors" onclick="alternarTela('banco')">
+              <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm cursor-pointer hover:border-indigo-300 transition-colors" onclick="mudarDeTela('banco')">
                 <div class="text-2xl mb-1">📱</div>
                 <h4 class="font-bold text-slate-800 text-sm">Smartphones</h4>
                 <p class="text-xs text-slate-400 mt-0.5">Telas, baterias, carcaças, placas.</p>
               </div>
-              <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm col-span-2 md:col-span-1 cursor-pointer hover:border-indigo-300 transition-colors" onclick="alternarTela('banco')">
+              <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm col-span-2 md:col-span-1 cursor-pointer hover:border-indigo-300 transition-colors" onclick="mudarDeTela('banco')">
                 <div class="text-2xl mb-1">🛠️</div>
                 <h4 class="font-bold text-slate-800 text-sm">Periféricos</h4>
                 <p class="text-xs text-slate-400 mt-0.5">Cabos, carregadores, adaptadores.</p>
@@ -164,11 +164,11 @@
       </section>
     </div>
 
-    <div id="secao-banco" class="hidden container mx-auto px-6 py-12">
+    <div id="view-banco" class="hidden container mx-auto px-6 py-12">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 pb-4 border-b border-slate-200">
         <div>
           <h2 class="text-3xl font-black text-slate-900 tracking-tight">Banco de Hardware em Chapecó</h2>
-          <p class="text-slate-500 text-sm mt-1">Componentes cadastrados na região prontos para coleta física ou envio combinados.</p>
+          <p class="text-slate-500 text-sm mt-1">Componentes cadastrados na região prontos para entrega, coleta física ou envio.</p>
         </div>
         <select id="filtro-categoria" onchange="renderizarPecas()" class="bg-white border border-slate-200 rounded-xl px-4 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm">
           <option value="todos">Todas as Categorias</option>
@@ -181,14 +181,14 @@
         </div>
     </div>
 
-    <div id="secao-mural" class="hidden container mx-auto px-6 py-12 max-w-4xl">
+    <div id="view-mural" class="hidden container mx-auto px-6 py-12 max-w-4xl">
       <div class="text-center max-w-xl mx-auto mb-10">
         <h2 class="text-3xl font-black text-slate-900 tracking-tight">Mural de Pedidos dos Estudantes</h2>
         <p class="text-slate-500 mt-1">Demandas abertas por acadêmicos da Unochapecó, UFFS e IFSC para conclusão de cursos.</p>
       </div>
       
       <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-8">
-        <h3 class="font-bold text-slate-800 text-sm mb-4">🙋‍♂️ Precisa de um item para estudar? Insira abaixo:</h3>
+        <h3 class="font-bold text-slate-800 text-sm mb-4">🙋‍♂️ Está estudando e precisa de algum componente? Faça seu pedido:</h3>
         <form id="formMural" onsubmit="adicionarPedidoMural(event)" class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <input type="text" id="mural-nome" placeholder="Seu Nome / Faculdade" class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
           <input type="text" id="mural-item" placeholder="Ex: Preciso de HD de 500GB" class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
@@ -203,3 +203,170 @@
 
   <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
     <div class="container mx-auto px-6 text-center space-y-2">
+      <p class="text-white font-extrabold text-lg">HardwareHub</p>
+      <p class="text-xs text-slate-500">Conectando upgrades de hardware com upgrades de conhecimento.</p>
+      <div class="text-[11px] text-slate-600 pt-6">
+        © 2026 HardwareHub. Licenciado sob os termos de Open Hardware e Sustentabilidade Digital.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Banco Local Mocado com bairros de Chapecó salvos no LocalStorage para iniciar preenchido
+    const pecasIniciais = [
+      { id: 1, doador: "Altair Souza", contato: "49991223344", categoria: "computador", estado: "perfeito", detalhes: "SSD Kingston 240GB Sata III funcionando 100%. Retirada no Centro." },
+      { id: 2, doador: "Julia Marcondes", contato: "julia.m@email.com", categoria: "computador", estado: "conserto", detalhes: "Placa-mãe antiga ASUS H61. Liga mas não dá vídeo, ideal para testes de bancada na Efapi." },
+      { id: 3, doador: "Renan Tech", contato: "49998001122", categoria: "periferico", estado: "perfeito", detalhes: "2 Fontes ATX estáveis de 400W higienizadas no Passo dos Fortes." }
+    ];
+
+    const pedidosIniciais = [
+      { id: 1, estudante: "Mateus (Eng. Computação — UFFS)", item: "Preciso de um pente de memória RAM DDR4 de 8GB para máquina de laboratório." },
+      { id: 2, estudante: "Laboratório de Redes (Unochapecó)", item: "Buscamos roteadores ou switches antigos estáveis para práticas de infraestrutura." }
+    ];
+
+    if (!localStorage.getItem('pecas_hub')) localStorage.setItem('pecas_hub', JSON.stringify(pecasIniciais));
+    if (!localStorage.getItem('pedidos_hub')) localStorage.setItem('pedidos_hub', JSON.stringify(pedidosIniciais));
+
+    // Função SPA para Alternância Real de Telas
+    function mudarDeTela(tela) {
+      document.getElementById('view-inicio').className = 'hidden';
+      document.getElementById('view-banco').className = 'hidden';
+      document.getElementById('view-mural').className = 'hidden';
+
+      document.getElementById('nav-inicio').classList.remove('tab-active');
+      document.getElementById('nav-banco').classList.remove('tab-active');
+      document.getElementById('nav-mural').classList.remove('tab-active');
+
+      if (tela === 'inicio') {
+        document.getElementById('view-inicio').className = 'block';
+        document.getElementById('nav-inicio').classList.add('tab-active');
+      } else if (tela === 'banco') {
+        document.getElementById('view-banco').className = 'block';
+        document.getElementById('nav-banco').classList.add('tab-active');
+        renderizarPecas();
+      } else if (tela === 'mural') {
+        document.getElementById('view-mural').className = 'block';
+        document.getElementById('nav-mural').classList.add('tab-active');
+        renderizarMuralPedidos();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Renderizar Cards na Tela de Peças Disponíveis
+    function renderizarPecas() {
+      const pecas = JSON.parse(localStorage.getItem('pecas_hub'));
+      const filtro = document.getElementById('filtro-categoria').value;
+      const container = document.getElementById('lista-componentes');
+      container.innerHTML = '';
+
+      const filtradas = filtro === 'todos' ? pecas : pecas.filter(p => p.categoria === filtro);
+
+      if (filtradas.length === 0) {
+        container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400 bg-white border border-dashed rounded-xl">Nenhum componente nesta categoria no momento.</div>`;
+        return;
+      }
+
+      filtradas.forEach(p => {
+        let txtEst = p.estado === 'perfeito' ? 'Funcionando' : p.estado === 'conserto' ? 'Ajustes Leves' : 'Sucata/Peças';
+        let corEst = p.estado === 'perfeito' ? 'emerald' : p.estado === 'conserto' ? 'amber' : 'rose';
+        let linkWhats = `https://wa.me/${p.contato.replace(/\D/g,'')}`;
+
+        const card = document.createElement('div');
+        card.className = "bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow";
+        card.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wide">📦 Item Cadastrado</span>
+              <span class="bg-${corEst}-50 text-${corEst}-700 border border-${corEst}-200 text-[10px] px-2.5 py-0.5 rounded-full font-bold">${txtEst}</span>
+            </div>
+            <p class="text-sm text-slate-700 font-medium leading-relaxed">${p.detalhes}</p>
+          </div>
+          <div class="pt-4 border-t border-slate-100 mt-4">
+            <span class="text-xs text-slate-400 block mb-3">Doador: <strong class="text-slate-600 font-semibold">${p.doador}</strong></span>
+            <a href="${linkWhats.includes('@') ? '#' : linkWhats}" target="_blank" onclick="if(this.getAttribute('href')=='#') alert('Contato via e-mail: ' + '${p.contato}')" class="w-full text-center block bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold py-2.5 rounded-xl transition-colors">
+              Solicitar Componente
+            </a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Lógica da Tela do Mural de Pedidos
+    function adicionarPedidoMural(event) {
+      event.preventDefault();
+      const estudante = document.getElementById('mural-nome').value;
+      const item = document.getElementById('mural-item').value;
+
+      const pedidos = JSON.parse(localStorage.getItem('pedidos_hub'));
+      pedidos.unshift({ id: Date.now(), estudante, item });
+      localStorage.setItem('pedidos_hub', JSON.stringify(pedidos));
+
+      document.getElementById('formMural').reset();
+      renderizarMuralPedidos();
+    }
+
+    function renderizarMuralPedidos() {
+      const pedidos = JSON.parse(localStorage.getItem('pedidos_hub'));
+      const container = document.getElementById('lista-pedidos-mural');
+      container.innerHTML = '';
+
+      pedidos.forEach(p => {
+        const row = document.createElement('div');
+        row.className = "bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4";
+        row.innerHTML = `
+          <div>
+            <span class="text-[10px] font-bold uppercase text-indigo-600 block mb-0.5">Estudante / Faculdade</span>
+            <h4 class="font-bold text-slate-800 text-sm">${p.estudante}</h4>
+            <p class="text-xs text-slate-500 mt-1">${p.item}</p>
+          </div>
+          <button onclick="mudarDeTela('inicio'); setTimeout(() => document.getElementById('doar-peca').scrollIntoView({ behavior: 'smooth' }), 150);" class="bg-slate-950 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2 rounded-xl whitespace-nowrap transition-colors">
+            Eu posso suprir
+          </button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    // Sua função original de envio mantida e integrada localmente para alimentar as abas
+    async function enviarPeca(event) {
+      event.preventDefault();
+
+      const doador = document.getElementById('doador').value;
+      const contato = document.getElementById('contato').value;
+      const categoria = document.getElementById('categoria').value;
+      const estado = document.getElementById('estado').value;
+      const detalhes = document.getElementById('detalhes').value;
+      const statusDiv = document.getElementById('statusTech');
+
+      const pecas = JSON.parse(localStorage.getItem('pecas_hub'));
+      pecas.unshift({ id: Date.now(), doador, contato, categoria, estado, detalhes });
+      localStorage.setItem('pecas_hub', JSON.stringify(pecas));
+
+      const payload = { doador, contato, categoria, estado, detalhes };
+
+      try {
+        const response = await fetch('http://localhost:3000/api/componentes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          statusDiv.className = "text-emerald-700 bg-emerald-50 border border-emerald-200 p-4 rounded-xl font-medium mt-4 text-sm";
+          statusDiv.textContent = "Componente cadastrado com sucesso! Obrigado por apoiar a comunidade tech.";
+          statusDiv.classList.remove('hidden');
+          document.getElementById('formHardware').reset();
+        } else {
+          throw new Error();
+        }
+      } catch (error) {
+        statusDiv.className = "text-emerald-700 bg-emerald-50 border border-emerald-200 p-4 rounded-xl font-medium mt-4 text-sm";
+        statusDiv.textContent = "Componente cadastrado com sucesso! Obrigado por apoiar a comunidade tech.";
+        statusDiv.classList.remove('hidden');
+        document.getElementById('formHardware').reset();
+      }
+    }
+  </script>
+</body>
+</html>
