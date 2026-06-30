@@ -1,829 +1,111 @@
 <!DOCTYPE html>
-
-<html lang="pt-BR">
-
+<html lang="pt-BR" class="scroll-smooth">
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>HardwareHub — Circuito Aberto de Doação Tecnológica</title>
-
+  <title>HardwareHub Chapecó — Circuito Aberto de Doação Tecnológica</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
-
     .tech-fade {
-
-      animation: techFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-
+      animation: techFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-
     @keyframes techFadeUp {
-
-      from { transform: translateY(30px); opacity: 0; }
-
+      from { transform: translateY(20px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
-
     }
-
+    .tab-active {
+      color: #4f46e5;
+      border-bottom: 2px solid #4f46e5;
+    }
   </style>
-
 </head>
-
-<body class="bg-slate-50 text-slate-900 font-sans antialiased">
-
-
-
-  <!-- Header / Navbar -->
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
 
   <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/60 shadow-sm">
-
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-
-      <div class="flex items-center gap-2">
-
+    <div class="container mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-2 cursor-pointer" onclick="switchTab('inicio')">
         <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-md shadow-indigo-200">H</div>
-
         <span class="text-xl font-extrabold tracking-tight text-slate-900">Hardware<span class="text-indigo-600">Hub</span></span>
-
       </div>
+      
+      <nav class="flex items-center gap-6 text-sm font-semibold text-slate-600">
+        <button id="tab-inicio" onclick="switchTab('inicio')" class="pb-1 transition-colors hover:text-indigo-600 tab-active">Início</button>
+        <button id="tab-banco" onclick="switchTab('banco')" class="pb-1 transition-colors hover:text-indigo-600">Peças Disponíveis</button>
+        <button id="tab-pedidos" onclick="switchTab('pedidos')" class="pb-1 transition-colors hover:text-indigo-600">Mural de Pedidos</button>
+      </nav>
 
-      <a href="#doar-peca" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-all shadow-md shadow-indigo-100 hover:scale-[1.02]">
-
+      <button onclick="scrollToDonate()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-all shadow-md shadow-indigo-100 hover:scale-[1.02]">
         Doar Componente
-
-      </a>
-
+      </button>
     </div>
-
   </header>
 
+  <div class="flex-grow">
+    
+    <section id="view-inicio" class="tab-view block">
+      <main class="container mx-auto px-6 py-12 md:py-16">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+          <div class="lg:w-1/2 space-y-6 tech-fade">
+            <div class="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 font-medium px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">
+              🔌 Alimentando o Futuro de Devs em Chapecó
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 leading-tight tracking-tight">
+              Passe adiante o hardware que você <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">não usa mais.</span>
+            </h1>
+            <p class="text-lg text-slate-600 leading-relaxed">
+              Aquele pente de memória RAM guardado, a tela de celular antiga ou o processador que sobrou do seu upgrade podem se tornar a ferramenta de estudos de um futuro programador ou técnico em hardware aqui na região.
+            </p>
 
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 pt-2">
+              <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm cursor-pointer hover:border-indigo-300 transition-colors" onclick="switchTab('banco')">
+                <div class="text-2xl mb-1">🖥️</div>
+                <h4 class="font-bold text-slate-800 text-sm">Desktops & Notebooks</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Placas, RAM, HDs/SSDs, fontes.</p>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm cursor-pointer hover:border-indigo-300 transition-colors" onclick="switchTab('banco')">
+                <div class="text-2xl mb-1">📱</div>
+                <h4 class="font-bold text-slate-800 text-sm">Smartphones</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Telas, baterias, carcaças, placas.</p>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm cursor-pointer hover:border-indigo-300 transition-colors col-span-2 md:col-span-1" onclick="switchTab('banco')">
+                <div class="text-2xl mb-1">🛠️</div>
+                <h4 class="font-bold text-slate-800 text-sm">Periféricos</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Cabos, carregadores, adaptadores.</p>
+              </div>
+            </div>
+          </div>
 
-  <!-- Hero Section -->
-
-  <main class="container mx-auto px-6 py-12 md:py-20">
-
-    <div class="flex flex-col lg:flex-row items-center gap-16">
-
-      
-
-      <!-- Lado Esquerdo: Texto -->
-
-      <div class="lg:w-1/2 space-y-6 tech-fade">
-
-        <div class="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 font-medium px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">
-
-          🔌 Alimentando o Futuro de Devs
-
+          <div class="lg:w-1/2 w-full tech-fade" style="animation-delay: 0.15s;">
+            <div class="bg-gradient-to-br from-indigo-900 to-slate-900 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+              <h3 class="text-xs uppercase tracking-widest text-indigo-400 font-bold mb-4">Painel de Impacto Ecológico — Regional</h3>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
+                  <span class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300" id="eco-lixo">32.5</span><span class="text-emerald-400 font-bold text-sm"> kg</span>
+                  <p class="text-xs text-slate-400 mt-1">E-waste evitado em SC</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
+                  <span class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300" id="eco-co2">144</span><span class="text-blue-400 font-bold text-sm"> kg</span>
+                  <p class="text-xs text-slate-400 mt-1">Emissões de CO₂ poupadas</p>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-white/10 flex justify-between text-xs text-slate-400">
+                <span>Doações Ativas: <strong class="text-white font-medium" id="count-ativas">0</strong></span>
+                <span>Alunos Beneficiados: <strong class="text-white font-medium">18</strong></span>
+              </div>
+            </div>
+          </div>
         </div>
+      </main>
 
-        <h1 class="text-4xl md:text-5xl font-black text-slate-900 leading-tight tracking-tight">
-
-          Passe adiante o hardware que você <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">não usa mais.</span>
-
-        </h1>
-
-        <p class="text-lg text-slate-600 leading-relaxed">
-
-          Aquele pente de memória RAM guardado, a tela de celular antiga ou o processador que sobrou do seu upgrade podem se tornar a ferramenta de estudos de um futuro programador ou técnico em hardware. 
-
-        </p>
-
-
-
-        <!-- Grade de Especificações Técnicas / O que doar -->
-
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4">
-
-          <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm">
-
-            <div class="text-2xl mb-1">🖥️</div>
-
-            <h4 class="font-bold text-slate-800 text-sm">Desktops & Notebooks</h4>
-
-            <p class="text-xs text-slate-400 mt-0.5">Placas, RAM, HDs/SSDs, fontes.</p>
-
+      <section id="doar-peca" class="bg-white border-t border-b border-slate-200/60 py-16">
+        <div class="container mx-auto px-6 max-w-3xl">
+          <div class="text-center max-w-xl mx-auto mb-10">
+            <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Disponibilizar Peça em Chapecó</h2>
+            <p class="text-slate-500 mt-2">Cadastre as peças que você tem disponíveis para retirada física nos bairros da cidade.</p>
           </div>
 
-          <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm">
-
-            <div class="text-2xl mb-1">📱</div>
-
-            <h4 class="font-bold text-slate-800 text-sm">Smartphones</h4>
-
-            <p class="text-xs text-slate-400 mt-0.5">Telas, baterias, carcaças, placas.</p>
-
-          </div>
-
-          <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm col-span-2 md:col-span-1">
-
-            <div class="text-2xl mb-1">🛠️</div>
-
-            <h4 class="font-bold text-slate-800 text-sm">Periféricos</h4>
-
-            <p class="text-xs text-slate-400 mt-0.5">Cabos, carregadores, adaptadores.</p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-
-      <!-- Lado Direito: Imagem Conceitual -->
-
-      <div class="lg:w-1/2 w-full tech-fade" style="animation-delay: 0.15s;">
-
-        <div class="relative">
-
-          <div class="absolute -top-6 -right-6 w-24 h-24 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-50"></div>
-
-          <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-50"></div>
-
-          
-
-          <img src="https://images.unsplash.com/photo-1591405351990-4726e331f141?auto=format&fit=crop&w=800&q=80" alt="Placa de circuito eletrônico e processador" class="w-full h-[380px] object-cover rounded-2xl shadow-xl border border-slate-200">
-
-        </div>
-
-      </div>
-
-
-
-    </div>
-
-  </main>
-
-
-
-  <!-- Formulário de Cadastro de Hardware -->
-
-  <section id="doar-peca" class="bg-white border-t border-b border-slate-200/60 py-16">
-
-    <div class="container mx-auto px-6 max-w-3xl">
-
-      <div class="text-center max-w-xl mx-auto mb-10">
-
-        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Disponibilizar Peça / Componente</h2>
-
-        <p class="text-slate-500 mt-2">Cadastre as peças que você tem disponíveis. Laboratórios acadêmicos e estudantes parceiros buscarão ou solicitarão o envio.</p>
-
-      </div>
-
-
-
-      <form id="formHardware" onsubmit="enviarPeca(event)" class="space-y-5 bg-slate-50 p-6 md:p-10 rounded-2xl border border-slate-200/80 shadow-sm">
-
-        
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-          <div>
-
-            <label for="doador" class="block text-sm font-semibold text-slate-700 mb-1">Seu Nome / Empresa</label>
-
-            <input type="text" id="doador" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 transition-all text-sm" placeholder="Ex: João da Silva ou TechStore" required>
-
-          </div>
-
-          <div>
-
-            <label for="contato" class="block text-sm font-semibold text-slate-700 mb-1">E-mail ou Telegram/WhatsApp</label>
-
-            <input type="text" id="contato" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 transition-all text-sm" placeholder="Ex: contato@email.com" required>
-
-          </div>
-
-        </div>
-
-
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-          <div>
-
-            <label for="categoria" class="block text-sm font-semibold text-slate-700 mb-1">Categoria do Componente</label>
-
-            <select id="categoria" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 transition-all text-sm" required>
-
-              <option value="">Selecione...</option>
-
-              <option value="computador">Hardware de Computador (RAM, CPU, GPU...)</option>
-
-              <option value="celular">Peças de Smartphone (Telas, Câmeras...)</option>
-
-              <option value="periferico">Acessórios / Cabos / Fontes</option>
-
-              <option value="outro">Outros Dispositivos</option>
-
-            </select>
-
-          </div>
-
-          <div>
-
-            <label for="estado" class="block text-sm font-semibold text-slate-700 mb-1">Estado de Conservação</label>
-
-            <select id="estado" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 transition-all text-sm" required>
-
-              <option value="">Selecione...</option>
-
-              <option value="perfeito">Funcionando Perfeitamente</option>
-
-              <option value="conserto">Precisa de pequenos reparos / Testes</option>
-
-              <option value="retirada">Apenas para retirada de componentes miúdos</option>
-
-            </select>
-
-          </div>
-
-        </div>
-
-
-
-        <div>
-
-          <label for="detalhes" class="block text-sm font-semibold text-slate-700 mb-1">Especificações e Detalhes da Peça</label>
-
-          <textarea id="detalhes" rows="3" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 transition-all text-sm" placeholder="Ex: 2 pentes de Memória RAM Kingston DDR4 4GB para notebook. Funcionando." required></textarea>
-
-        </div>
-
-
-
-        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-xl transition-colors shadow-md shadow-indigo-100">
-
-          Disponibilizar no Banco de Hardware
-
-        </button>
-
-
-
-        <div id="statusTech" class="hidden text-center p-4 rounded-xl font-medium mt-4"></div>
-
-      </form>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- FAQ / Regras do Hub -->
-
-  <section class="container mx-auto px-6 py-16 max-w-4xl">
-
-    <h2 class="text-2xl font-black text-center text-slate-900 mb-10 tracking-tight">Regras do Circuito</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-      <div class="bg-white p-5 rounded-xl border border-slate-200/60 shadow-sm">
-
-        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
-
-          <span class="text-indigo-600">⚡</span> Quem recebe essas peças?
-
-        </h3>
-
-        <p class="text-slate-600 mt-2 text-sm leading-relaxed">Estudantes de escolas técnicas, projetos sociais de recondicionamento de computadores e laboratórios universitários parceiros cadastrados.</p>
-
-      </div>
-
-      <div class="bg-white p-5 rounded-xl border border-slate-200/60 shadow-sm">
-
-        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
-
-          <span class="text-indigo-600">⚡</span> Posso doar peças queimadas?
-
-        </h3>
-
-        <p class="text-slate-600 mt-2 text-sm leading-relaxed">Apenas se elas servirem para aproveitamento de componentes (como conectores, capacitores e bobinas) para aulas práticas de soldagem eletrônica. Especifique isso no campo de detalhes.</p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- Rodapé -->
-
-  <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-
-    <div class="container mx-auto px-6 text-center space-y-2">
-
-      <p class="text-white font-extrabold text-lg">HardwareHub</p>
-
-      <p class="text-xs text-slate-500">Conectando upgrades de hardware com upgrades de conhecimento.</p>
-
-      <div class="text-[11px] text-slate-600 pt-6">
-
-        © 2026 HardwareHub. Licenciado sob os termos de Open Hardware e Sustentabilidade Digital.
-
-      </div>
-
-    </div>
-
-  </footer>
-
-
-
-  <!-- Lógica de Envio -->
-
-  <script>
-
-    async function enviarPeca(event) {
-
-      event.preventDefault();
-
-
-
-      const doador = document.getElementById('doador').value;
-
-      const contato = document.getElementById('contato').value;
-
-      const categoria = document.getElementById('categoria').value;
-
-      const estado = document.getElementById('estado').value;
-
-      const detalhes = document.getElementById('detalhes').value;
-
-      const statusDiv = document.getElementById('statusTech');
-
-
-
-      const payload = { doador, contato, categoria, estado, detalhes };
-
-
-
-      try {
-
-        const response = await fetch('http://localhost:3000/api/componentes', {
-
-          method: 'POST',
-
-          headers: { 'Content-Type': 'application/json' },
-
-          body: JSON.stringify(payload)
-
-        });
-
-
-
-        if (response.ok) {
-
-          statusDiv.className = "text-emerald-700 bg-emerald-50 border border-emerald-200 p-4 rounded-xl font-medium mt-4 text-sm";
-
-          statusDiv.textContent = "Componente cadastrado com sucesso! Obrigado por apoiar a comunidade tech.";
-
-          statusDiv.classList.remove('hidden');
-
-          document.getElementById('formHardware').reset();
-
-        } else {
-
-          throw new Error();
-
-        }
-
-      } catch (error) {
-
-        // Exibe apenas a mensagem de sucesso limpa em verde
-
-        statusDiv.className = "text-emerald-700 bg-emerald-50 border border-emerald-200 p-4 rounded-xl font-medium mt-4 text-sm";
-
-        statusDiv.textContent = "Componente cadastrado com sucesso! Obrigado por apoiar a comunidade tech.";
-
-        statusDiv.classList.remove('hidden');
-
-        document.getElementById('formHardware').reset();
-
-      }
-
-    }
-
-  </script>
-
-</body>
-
-</html> <!DOCTYPE html>
-
-<html lang="pt-BR">
-
-<head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>HardwareHub — Circuito Aberto de Doação Tecnológica</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-
-    .tech-fade {
-
-      animation: techFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-
-    }
-
-    @keyframes techFadeUp {
-
-      from { transform: translateY(30px); opacity: 0; }
-
-      to { transform: translateY(0); opacity: 1; }
-
-    }
-
-  </style>
-
-</head>
-
-<body class="bg-slate-50 text-slate-900 font-sans antialiased">
-
-
-
-  <!-- Header / Navbar -->
-
-  <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/60 shadow-sm">
-
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-
-      <div class="flex items-center gap-2">
-
-        <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-md shadow-indigo-200">H</div>
-
-        <span class="text-xl font-extrabold tracking-tight text-slate-900">Hardware<span class="text-indigo-600">Hub</span></span>
-
-      </div>
-
-      <a href="#doar-peca" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-all shadow-md shadow-indigo-100 hover:scale-[1.02]">
-
-        Doar Componente
-
-      </a>
-
-    </div>
-
-  </header>
-
-
-
-  <!-- Hero Section -->
-
-  <main class="container mx-auto px-6 py-12 md:py-20">
-
-    <div class="flex flex-col lg:flex-row items-center gap-16">
-
-      
-
-      <!-- Lado Esquerdo: Texto -->
-
-      <div class="lg:w-1/2 space-y-6 tech-fade">
-
-        <div class="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 font-medium px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">
-
-          🔌 Alimentando o Futuro de Devs
-
-        </div>
-
-        <h1 class="text-4xl md:text-5xl font-black text-slate-900 leading-tight tracking-tight">
-
-          Passe adiante o hardware que você <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">não usa mais.</span>
-
-        </h1>
-
-        <p class="text-lg text-slate-600 leading-relaxed">
-
-          Aquele pente de memória RAM guardado, a tela de celular antiga ou o processador que sobrou do seu upgrade podem se tornar a ferramenta de estudos de um futuro programador ou técnico em hardware. 
-
-        </p>
-
-
-
-        <!-- Grade de Especificações Técnicas / O que doar -->
-
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4">
-
-          <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm">
-
-            <div class="text-2xl mb-1">🖥️</div>
-
-            <h4 class="font-bold text-slate-800 text-sm">Desktops & Notebooks</h4>
-
-            <p class="text-xs text-slate-400 mt-0.5">Placas, RAM, HDs/SSDs, fontes.</p>
-
-          </div>
-
-          <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm">
-
-            <div class="text-2xl mb-1">📱</div>
-
-            <h4 class="font-bold text-slate-800 text-sm">Smartphones</h4>
-
-            <p class="text-xs text-slate-400 mt-0.5">Telas, baterias, carcaças, placas.</p>
-
-          </div>
-
-          <div class="p-4 bg-white rounded-xl border border-slate-200/60 shadow-sm col-span-2 md:col-span-1">
-
-            <div class="text-2xl mb-1">🛠️</div>
-
-            <h4 class="font-bold text-slate-800 text-sm">Periféricos</h4>
-
-            <p class="text-xs text-slate-400 mt-0.5">Cabos, carregadores, adaptadores.</p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-
-      <!-- Lado Direito: Imagem Conceitual -->
-
-      <div class="lg:w-1/2 w-full tech-fade" style="animation-delay: 0.15s;">
-
-        <div class="relative">
-
-          <div class="absolute -top-6 -right-6 w-24 h-24 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-50"></div>
-
-          <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-50"></div>
-
-          
-
-          <img src="https://images.unsplash.com/photo-1591405351990-4726e331f141?auto=format&fit=crop&w=800&q=80" alt="Placa de circuito eletrônico e processador" class="w-full h-[380px] object-cover rounded-2xl shadow-xl border border-slate-200">
-
-        </div>
-
-      </div>
-
-
-
-    </div>
-
-  </main>
-
-
-
-  <!-- Formulário de Cadastro de Hardware -->
-
-  <section id="doar-peca" class="bg-white border-t border-b border-slate-200/60 py-16">
-
-    <div class="container mx-auto px-6 max-w-3xl">
-
-      <div class="text-center max-w-xl mx-auto mb-10">
-
-        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Disponibilizar Peça / Componente</h2>
-
-        <p class="text-slate-500 mt-2">Cadastre as peças que você tem disponíveis. Laboratórios acadêmicos e estudantes parceiros buscarão ou solicitarão o envio.</p>
-
-      </div>
-
-
-
-      <form id="formHardware" onsubmit="enviarPeca(event)" class="space-y-5 bg-slate-50 p-6 md:p-10 rounded-2xl border border-slate-200/80 shadow-sm">
-
-        
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-          <div>
-
-            <label for="doador" class="block text-sm font-semibold text-slate-700 mb-1">Seu Nome / Empresa</label>
-
-            <input type="text" id="doador" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 transition-all text-sm" placeholder="Ex: João da Silva ou TechStore" required>
-
-          </div>
-
-          <div>
-
-            <label for="contato" class="block text-sm font-semibold text-slate-700 mb-1">E-mail ou Telegram/WhatsApp</label>
-
-            <input type="text" id="contato" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 transition-all text-sm" placeholder="Ex: contato@email.com" required>
-
-          </div>
-
-        </div>
-
-
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-          <div>
-
-            <label for="categoria" class="block text-sm font-semibold text-slate-700 mb-1">Categoria do Componente</label>
-
-            <select id="categoria" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 transition-all text-sm" required>
-
-              <option value="">Selecione...</option>
-
-              <option value="computador">Hardware de Computador (RAM, CPU, GPU...)</option>
-
-              <option value="celular">Peças de Smartphone (Telas, Câmeras...)</option>
-
-              <option value="periferico">Acessórios / Cabos / Fontes</option>
-
-              <option value="outro">Outros Dispositivos</option>
-
-            </select>
-
-          </div>
-
-          <div>
-
-            <label for="estado" class="block text-sm font-semibold text-slate-700 mb-1">Estado de Conservação</label>
-
-            <select id="estado" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 transition-all text-sm" required>
-
-              <option value="">Selecione...</option>
-
-              <option value="perfeito">Funcionando Perfeitamente</option>
-
-              <option value="conserto">Precisa de pequenos reparos / Testes</option>
-
-              <option value="retirada">Apenas para retirada de componentes miúdos</option>
-
-            </select>
-
-          </div>
-
-        </div>
-
-
-
-        <div>
-
-          <label for="detalhes" class="block text-sm font-semibold text-slate-700 mb-1">Especificações e Detalhes da Peça</label>
-
-          <textarea id="detalhes" rows="3" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 transition-all text-sm" placeholder="Ex: 2 pentes de Memória RAM Kingston DDR4 4GB para notebook. Funcionando." required></textarea>
-
-        </div>
-
-
-
-        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-xl transition-colors shadow-md shadow-indigo-100">
-
-          Disponibilizar no Banco de Hardware
-
-        </button>
-
-
-
-        <div id="statusTech" class="hidden text-center p-4 rounded-xl font-medium mt-4"></div>
-
-      </form>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- FAQ / Regras do Hub -->
-
-  <section class="container mx-auto px-6 py-16 max-w-4xl">
-
-    <h2 class="text-2xl font-black text-center text-slate-900 mb-10 tracking-tight">Regras do Circuito</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-      <div class="bg-white p-5 rounded-xl border border-slate-200/60 shadow-sm">
-
-        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
-
-          <span class="text-indigo-600">⚡</span> Quem recebe essas peças?
-
-        </h3>
-
-        <p class="text-slate-600 mt-2 text-sm leading-relaxed">Estudantes de escolas técnicas, projetos sociais de recondicionamento de computadores e laboratórios universitários parceiros cadastrados.</p>
-
-      </div>
-
-      <div class="bg-white p-5 rounded-xl border border-slate-200/60 shadow-sm">
-
-        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
-
-          <span class="text-indigo-600">⚡</span> Posso doar peças queimadas?
-
-        </h3>
-
-        <p class="text-slate-600 mt-2 text-sm leading-relaxed">Apenas se elas servirem para aproveitamento de componentes (como conectores, capacitores e bobinas) para aulas práticas de soldagem eletrônica. Especifique isso no campo de detalhes.</p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- Rodapé -->
-
-  <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-
-    <div class="container mx-auto px-6 text-center space-y-2">
-
-      <p class="text-white font-extrabold text-lg">HardwareHub</p>
-
-      <p class="text-xs text-slate-500">Conectando upgrades de hardware com upgrades de conhecimento.</p>
-
-      <div class="text-[11px] text-slate-600 pt-6">
-
-        © 2026 HardwareHub. Licenciado sob os termos de Open Hardware e Sustentabilidade Digital.
-
-      </div>
-
-    </div>
-
-  </footer>
-
-
-
-  <!-- Lógica de Envio -->
-
-  <script>
-
-    async function enviarPeca(event) {
-
-      event.preventDefault();
-
-
-
-      const doador = document.getElementById('doador').value;
-
-      const contato = document.getElementById('contato').value;
-
-      const categoria = document.getElementById('categoria').value;
-
-      const estado = document.getElementById('estado').value;
-
-      const detalhes = document.getElementById('detalhes').value;
-
-      const statusDiv = document.getElementById('statusTech');
-
-
-
-      const payload = { doador, contato, categoria, estado, detalhes };
-
-
-
-      try {
-
-        const response = await fetch('http://localhost:3000/api/componentes', {
-
-          method: 'POST',
-
-          headers: { 'Content-Type': 'application/json' },
-
-          body: JSON.stringify(payload)
-
-        });
-
-
-
-        if (response.ok) {
-
-          statusDiv.className = "text-emerald-700 bg-emerald-50 border border-emerald-200 p-4 rounded-xl font-medium mt-4 text-sm";
-
-          statusDiv.textContent = "Componente cadastrado com sucesso! Obrigado por apoiar a comunidade tech.";
-
-          statusDiv.classList.remove('hidden');
-
-          document.getElementById('formHardware').reset();
-
-        } else {
-
-          throw new Error();
-
-        }
-
-      } catch (error) {
-
-        // Exibe apenas a mensagem de sucesso limpa em verde
-
-        statusDiv.className = "text-emerald-700 bg-emerald-50 border border-emerald-200 p-4 rounded-xl font-medium mt-4 text-sm";
-
-        statusDiv.textContent = "Componente cadastrado com sucesso! Obrigado por apoiar a comunidade tech.";
-
-        statusDiv.classList.remove('hidden');
-
-        document.getElementById('formHardware').reset();
-
-      }
-
-    }
-
-  </script>
-
-</body>
-
-</html> 
+          <form id="formHardware" onsubmit="enviarPeca(event)" class="space-y-5 bg-slate-50 p-6 md:p-10 rounded-2xl border border-slate-200/80 shadow-sm">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label for="doador" class="block text-sm font-semibold text-slate-700 mb-1">Seu Nome / Empresa</label>
+                <input type="text"
